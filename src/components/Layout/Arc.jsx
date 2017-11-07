@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 import Velocity from 'velocity-animate';
 import { autorun } from 'mobx';
+import { Slider, InputNumber, Row, Col } from 'antd';
+
 
 const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
     const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
@@ -59,8 +61,10 @@ class Arc extends React.Component {
           console.log(`${store.isWin}`)
           console.log(`${store.winLength}`)
           if(store.isWin){
+            store.lastWin = store.winLength;
             store.balanceLength += store.winLength;
           } else {
+            store.lastWin = 0;
             store.balanceLength -= store.betLength;
           }
           store.isSet = false;
@@ -78,23 +82,47 @@ class Arc extends React.Component {
     }
   }
 
+  onChange = (value) => {
+    const { store } = this.props;
+    store.betLength = value;
+  }
+
   render() {
     const { store } = this.props;
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
-        <g transform="translate(150,150)">
-            <circle cx="0" cy="0" r={store.betRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
-            <circle cx="0" cy="0" r={store.cutRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
-            <circle cx="0" cy="0" r={store.wageRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
-            <path d={path(store.balanceDegrees, store.betRadius)} fillOpacity="0" stroke="#42A5F5" strokeWidth="2"/>
-            <path d={path(store.betDegrees, store.betRadius)} fillOpacity="0" stroke="#FF8A65" strokeWidth="3"/>
-            <path d={path(store.wageDegrees, store.wageRadius)} fillOpacity="0" stroke="#9932CC" strokeWidth="2"/>
-            <path ref="block" d={path(store.cutDegrees, store.cutRadius)} fillOpacity="0" stroke="#9932CC" strokeWidth="2"/>
-        </g>
-        <g transform={transform(store.triangleDegrees, store.betRadius)}>
-          <path fill="#FFFFFF" stroke="#777777" strokeWidth="1" d="M 5,3 0,-3 -5,3"/>
-        </g>
-      </svg>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+          <g transform="translate(150,150)">
+              <circle cx="0" cy="0" r={store.betRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
+              <circle cx="0" cy="0" r={store.cutRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
+              <circle cx="0" cy="0" r={store.wageRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
+              <path d={path(store.balanceDegrees, store.betRadius)} fillOpacity="0" stroke="#42A5F5" strokeWidth="2"/>
+              <path d={path(store.betDegrees, store.betRadius)} fillOpacity="0" stroke="#FF8A65" strokeWidth="3"/>
+              <path d={path(store.wageDegrees, store.wageRadius)} fillOpacity="0" stroke="#9932CC" strokeWidth="2"/>
+              <path ref="block" d={path(store.cutDegrees, store.cutRadius)} fillOpacity="0" stroke="#9932CC" strokeWidth="2"/>
+          </g>
+          <g transform={transform(store.triangleDegrees, store.betRadius)}>
+            <path fill="#FFFFFF" stroke="#777777" strokeWidth="1" d="M 5,3 0,-3 -5,3"/>
+          </g>
+        </svg>
+        <div>Balance: {store.balanceLength}</div>
+        <div>Bet: {store.betLength}</div>
+        <div>Last Win: {store.lastWin}</div>
+        <Row>
+          <Col span={12}>
+            <Slider min={10} max={40} onChange={this.onChange} value={store.betLength} />
+          </Col>
+          <Col span={4}>
+            <InputNumber
+              min={10}
+              max={40}
+              style={{ marginLeft: 16 }}
+              value={store.betLength}
+              onChange={this.onChange}
+            />
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

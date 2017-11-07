@@ -6,6 +6,8 @@ class Store {
 
   @observable result = 0;
 
+  @observable lastWin = 0;
+
   @observable balanceLength = 150;
 
   @observable betLength = 30;
@@ -94,7 +96,7 @@ class Store {
 
   @computed
   get winLength() {
-    return (this.degreeDiff(this.resultStartDegrees, this.resultEndDegrees, this.normalizedTriangleDegrees) * Math.PI * this.cutRadius) / 180;
+    return Math.ceil((this.degreeDiff(this.resultStartDegrees, this.resultEndDegrees, this.normalizedTriangleDegrees) * Math.PI * this.cutRadius) / 180);
   }
 
 }
