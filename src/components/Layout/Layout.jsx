@@ -11,13 +11,12 @@ class Layout extends React.Component {
   @action
   wheel = e => {
     const { store } = this.props;
-    if (store.isSet) {
-      return;
-    }
-    if (e.deltaY > 0) {
-        store.triangleDegrees++;
-    } else {
-        store.triangleDegrees--;
+    if (!store.isSet) {
+      if (e.deltaY > 0) {
+          store.triangleDegrees++;
+      } else {
+          store.triangleDegrees--;
+      }
     }
   }
 

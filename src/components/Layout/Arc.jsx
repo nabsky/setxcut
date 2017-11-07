@@ -41,20 +41,21 @@ class Arc extends React.Component {
 
   componentDidMount() {
     const { store } = this.props;
-
     this.disposer = autorun(() => {
       if (store.isSet) {
+        console.log('set');
         Velocity(this.refs.block,{  opacity: "1" }, { duration: 0})
         .then(e=> {
-          Velocity(this.refs.block,{ rotateZ: "+=720" }, { duration: 2000, easing: "linear"});
+          Velocity(this.refs.block,{ rotateZ: "+=1080" }, { duration: 3000, easing: "linear"});
         }).then(e=> {
           Velocity(this.refs.block,{ rotateZ: `+=${store.result}` }, { duration: store.resultSpeed, easing: "linear"});
         }).then(e=> {
           Velocity(this.refs.block,{  opacity: "0" }, { duration: 1000});
         }).then(e=> {
+          Velocity(this.refs.block,{  opacity: "0" }, { duration: 0});
+          Velocity(this.refs.block,{  rotateZ: "0" }, { duration: 0});
           store.isSet = false;
         });
-
       } else {
         Velocity(this.refs.block,{  opacity: "0" }, { duration: 0});
       }
@@ -82,7 +83,7 @@ class Arc extends React.Component {
             <path ref="block" d={path(store.cutDegrees, store.cutRadius)} fillOpacity="0" stroke="#9932CC" strokeWidth="2"/>
         </g>
         <g transform={transform(store.triangleDegrees, store.betRadius)}>
-          <polygon fill="#FF8A65" stroke="none" strokeWidth="0" points="0,-4 -4,4 4,4"/>
+          <path fill="#FFFFFF" stroke="#777777" strokeWidth="1" d="M 5,3 0,-3 -5,3"/>
         </g>
       </svg>
     );
