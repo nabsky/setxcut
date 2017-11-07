@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 import Velocity from 'velocity-animate';
 import { autorun } from 'mobx';
-import { Slider, InputNumber, Row, Col } from 'antd';
-
 
 const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
     const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
@@ -105,24 +103,6 @@ class Arc extends React.Component {
             <path fill="#FFFFFF" stroke="#777777" strokeWidth="1" d="M 5,3 0,-3 -5,3"/>
           </g>
         </svg>
-        <div>Balance: {store.balanceLength}</div>
-        <div>Bet: {store.betLength}</div>
-        <div>Max Wage: {store.maxWage}</div>
-        <div>Last Win: {store.lastWin}</div>
-        <Row>
-          <Col span={12}>
-            <Slider min={store.minBet} max={store.maxBet} onChange={this.onChange} value={store.betLength} />
-          </Col>
-          <Col span={4}>
-            <InputNumber
-              min={store.minBet}
-              max={store.maxBet}
-              style={{ marginLeft: 16 }}
-              value={store.betLength}
-              onChange={this.onChange}
-            />
-          </Col>
-        </Row>
       </div>
     );
   }

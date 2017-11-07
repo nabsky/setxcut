@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { observable, action } from "mobx";
 import { observer, inject } from "mobx-react";
+import { Slider, InputNumber, Row, Col } from 'antd';
 
 import Arc from "../Layout/Arc";
 
@@ -29,12 +30,38 @@ class Layout extends React.Component {
     }
   }
 
+  onChange = (value) => {
+    const { store } = this.props;
+    store.betLength = value;
+  }
+
   render() {
     const { store } = this.props;
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{width: "100%", height:"100%"}} onWheel={this.wheel} onClick={this.click}>
+      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+        <img src="img/setxcut.png" alt="SETxCUT" width="160px"/>
+        <div style={{width: "100%"}} onWheel={this.wheel} onClick={this.click}>
           <Arc store={store} />
+        </div>
+        <div style={{width: "100%"}} >
+          <div>Balance: {store.balanceLength}</div>
+          <div>Bet: {store.betLength}</div>
+          <div>Max Wage: {store.maxWage}</div>
+          <div>Last Win: {store.lastWin}</div>
+          <Row>
+            <Col span={18}>
+              <Slider min={store.minBet} max={store.maxBet} onChange={this.onChange} value={store.betLength} />
+            </Col>
+            <Col span={4}>
+              <InputNumber
+                min={store.minBet}
+                max={store.maxBet}
+                style={{ marginLeft: 16 }}
+                value={store.betLength}
+                onChange={this.onChange}
+              />
+            </Col>
+          </Row>
         </div>
       </div>
     );
