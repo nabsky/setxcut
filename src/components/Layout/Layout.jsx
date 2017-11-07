@@ -24,7 +24,7 @@ class Layout extends React.Component {
   click = e => {
     const { store } = this.props;
     if (store.isSet === false) {
-      store.result = 360 + Math.ceil(360*Math.random());
+      store.result = 360 + Math.floor(360*Math.random());
       store.isSet = true;
     }
   }

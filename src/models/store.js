@@ -8,12 +8,21 @@ class Store {
 
   @observable lastWin = 0;
 
+  @observable minBet = 1;
+  @observable _maxBet = 40;
+
   @observable balanceLength = 150;
 
   @observable betLength = 30;
   @observable betRadius = 50;
 
   @observable triangleDegrees = 0;
+
+
+  @computed
+  get maxBet() {
+    return this.balanceLength >= this._maxBet ? this._maxBet : this.balanceLength;
+  }
 
   @computed
   get betDegrees() {
@@ -96,7 +105,12 @@ class Store {
 
   @computed
   get winLength() {
-    return Math.ceil((this.degreeDiff(this.resultStartDegrees, this.resultEndDegrees, this.normalizedTriangleDegrees) * Math.PI * this.cutRadius) / 180);
+    return Math.floor((this.degreeDiff(this.resultStartDegrees, this.resultEndDegrees, this.normalizedTriangleDegrees) * Math.PI * this.cutRadius) / 180);
+  }
+
+  @computed
+  get maxWage() {
+    return Math.floor(this.wageLength);
   }
 
 }

@@ -107,15 +107,16 @@ class Arc extends React.Component {
         </svg>
         <div>Balance: {store.balanceLength}</div>
         <div>Bet: {store.betLength}</div>
+        <div>Max Wage: {store.maxWage}</div>
         <div>Last Win: {store.lastWin}</div>
         <Row>
           <Col span={12}>
-            <Slider min={10} max={40} onChange={this.onChange} value={store.betLength} />
+            <Slider min={store.minBet} max={store.maxBet} onChange={this.onChange} value={store.betLength} />
           </Col>
           <Col span={4}>
             <InputNumber
-              min={10}
-              max={40}
+              min={store.minBet}
+              max={store.maxBet}
               style={{ marginLeft: 16 }}
               value={store.betLength}
               onChange={this.onChange}
