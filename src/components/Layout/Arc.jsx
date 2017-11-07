@@ -46,14 +46,15 @@ class Arc extends React.Component {
         console.log('set');
         Velocity(this.refs.block,{  opacity: "1" }, { duration: 0})
         .then(e=> {
-          Velocity(this.refs.block,{ rotateZ: "+=1080" }, { duration: 3000, easing: "linear"});
+          return Velocity(this.refs.block,{ rotateZ: "+=1080" }, { duration: 3000, easing: "linear"});
         }).then(e=> {
-          Velocity(this.refs.block,{ rotateZ: `+=${store.result}` }, { duration: store.resultSpeed, easing: "linear"});
+          return Velocity(this.refs.block,{ rotateZ: `+=${store.result}` }, { duration: store.resultSpeed, easing: "linear"});
         }).then(e=> {
-          Velocity(this.refs.block,{  opacity: "0" }, { duration: 1000});
+          return Velocity(this.refs.block,{  opacity: "0" }, { duration: 1000});
         }).then(e=> {
           Velocity(this.refs.block,{  rotateZ: "0deg" }, { duration: 0});
           Velocity(this.refs.block,{  opacity: "0" }, { duration: 0});
+
           console.log(`${store.resultStartDegrees} - ${store.resultEndDegrees} : ${store.normalizedTriangleDegrees}`)
           console.log(`${store.isWin}`)
           console.log(`${store.winLength}`)
