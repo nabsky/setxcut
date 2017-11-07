@@ -44,13 +44,17 @@ class Arc extends React.Component {
 
     this.disposer = autorun(() => {
       if (store.isSet) {
-        Velocity(this.refs.block,{  opacity: "1" }, { duration: 0}).then(e=> {
+        Velocity(this.refs.block,{  opacity: "1" }, { duration: 0})
+        .then(e=> {
           Velocity(this.refs.block,{ rotateZ: "+=720" }, { duration: 2000, easing: "linear"});
         }).then(e=> {
-          Velocity(this.refs.block,{ rotateZ: `+=${store.result}` }, { duration: store.resultSpeed, easing: "linear"})
+          Velocity(this.refs.block,{ rotateZ: `+=${store.result}` }, { duration: store.resultSpeed, easing: "linear"});
         }).then(e=> {
-          //store.isSet = false;
+          Velocity(this.refs.block,{  opacity: "0" }, { duration: 1000});
+        }).then(e=> {
+          store.isSet = false;
         });
+
       } else {
         Velocity(this.refs.block,{  opacity: "0" }, { duration: 0});
       }
