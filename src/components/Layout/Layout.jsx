@@ -35,19 +35,13 @@ class Layout extends React.Component {
     store.betLength = value;
   }
 
-  render() {
+  getBetContent = () => {
     const { store } = this.props;
-    return (
-      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-        <img src="img/setxcut.png" alt="SETxCUT" width="160px"/>
-        <div style={{width: "100%"}} onWheel={this.wheel} onClick={this.click}>
-          <Arc store={store} />
-        </div>
-        <div style={{width: "100%"}} >
-          <div>Balance: {store.balanceLength}</div>
+    if(store.balanceLength){
+      return (
+        <div>
           <div>Bet: {store.betLength}</div>
           <div>Max Wage: {store.maxWage}</div>
-          <div>Last Win: {store.lastWin}</div>
           <Row>
             <Col span={18}>
               <Slider min={store.minBet} max={store.maxBet} onChange={this.onChange} value={store.betLength} />
@@ -62,6 +56,25 @@ class Layout extends React.Component {
               />
             </Col>
           </Row>
+        </div>
+      )
+    } else {
+      return null;
+    }
+  }
+
+  render() {
+    const { store } = this.props;
+    return (
+      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+        <img src="img/setxcut.png" alt="SETxCUT" width="160px"/>
+        <div style={{width: "100%"}} onWheel={this.wheel} onClick={this.click}>
+          <Arc store={store} />
+        </div>
+        <div style={{width: "100%"}} >
+          <div>Balance: {store.balanceLength}</div>
+          <div>Last Win: {store.lastWin}</div>
+          {this.getBetContent()}
         </div>
       </div>
     );

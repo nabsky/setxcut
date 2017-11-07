@@ -80,11 +80,6 @@ class Arc extends React.Component {
     }
   }
 
-  onChange = (value) => {
-    const { store } = this.props;
-    store.betLength = value;
-  }
-
   render() {
     const { store } = this.props;
     return (
