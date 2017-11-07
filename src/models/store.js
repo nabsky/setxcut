@@ -6,11 +6,17 @@ class Store {
 
   @observable result = 280;
 
-  @observable balanceLength = 40;
+  @observable balanceLength = 100;
 
+  @observable betLength = 10;
   @observable betRadius = 50;
-  @observable betDegrees = 20;
+
   @observable triangleDegrees = 0;
+
+  @computed
+  get betDegrees() {
+    return this.betLength * 180 / (Math.PI * this.betRadius);
+  }
 
   @computed
   get wageDegrees() {

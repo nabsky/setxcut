@@ -52,8 +52,8 @@ class Arc extends React.Component {
         }).then(e=> {
           Velocity(this.refs.block,{  opacity: "0" }, { duration: 1000});
         }).then(e=> {
+          Velocity(this.refs.block,{  rotateZ: "0deg" }, { duration: 0});
           Velocity(this.refs.block,{  opacity: "0" }, { duration: 0});
-          Velocity(this.refs.block,{  rotateZ: "0" }, { duration: 0});
           store.isSet = false;
         });
       } else {
