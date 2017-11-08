@@ -69,6 +69,9 @@ class Arc extends React.Component {
             store.balanceLength -= store.betLength;
           }
           segment.draw(0, store.balanceLength, 0.5);
+          if(store.balanceLength == 0){
+            store.betLength = 0;
+          }
           store.isSet = false;
         });
       } else {
