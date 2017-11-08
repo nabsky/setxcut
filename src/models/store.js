@@ -18,6 +18,8 @@ class Store {
 
   @observable triangleDegrees = 0;
 
+  @observable jackPotLength = 0;
+
 
   @computed
   get maxBet() {
@@ -39,6 +41,12 @@ class Store {
     return this.betRadius + 90;
   }
 
+
+  @computed
+  get jackPotRadius() {
+    return this.betRadius + 109.156;//98;
+  }
+
  @computed
  get cutRadius() {
   return this.betRadius - 10;
@@ -52,6 +60,16 @@ class Store {
  @computed
  get cutDegrees() {
    return this.wageLength * 180 / (Math.PI * this.cutRadius);
+ }
+
+ @computed
+ get jackPotDegrees() {
+   return this.jackPotLength * 180 / (Math.PI * this.jackPotRadius);
+ }
+
+ @computed
+ get maxJackPot() {
+   return 2 * Math.PI * this.jackPotRadius - 0.01;
  }
 
  @computed

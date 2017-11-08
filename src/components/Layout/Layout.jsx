@@ -74,6 +74,7 @@ class Layout extends React.Component {
         <div style={{width: "100%"}} >
           <div>Balance: {store.balanceLength}</div>
           <div>Last Win: {store.lastWin}</div>
+          <div>Jack Pot: {store.jackPotLength}</div>
           {this.getBetContent()}
         </div>
       </div>
