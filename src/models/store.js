@@ -9,11 +9,11 @@ class Store {
   @observable lastWin = 0;
 
   @observable minBet = 1;
-  @observable _maxBet = 40;
+  @observable _maxBet = 25;
 
   @observable balanceLength = 150;
 
-  @observable betLength = 30;
+  @observable betLength = 25;
   @observable betRadius = 50;
 
   @observable triangleDegrees = 0;
