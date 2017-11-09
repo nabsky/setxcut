@@ -11,14 +11,14 @@ class Store {
   @observable minBet = 1;
   @observable _maxBet = 25;
 
-  @observable balanceLength = 150;
+  @observable balanceLength = 0;
 
-  @observable betLength = 25;
+  @observable betLength = 0;
   @observable betRadius = 50;
 
   @observable triangleDegrees = 0;
 
-  @observable jackPotLength = 0;
+  @observable freeSpinsLength = 0;
 
 
   @computed
@@ -43,7 +43,7 @@ class Store {
 
 
   @computed
-  get jackPotRadius() {
+  get freeSpinsRadius() {
     return this.betRadius + 109.156;//98;
   }
 
@@ -63,13 +63,13 @@ class Store {
  }
 
  @computed
- get jackPotDegrees() {
-   return this.jackPotLength * 180 / (Math.PI * this.jackPotRadius);
+ get freeSpinsDegrees() {
+   return this.freeSpinsLength * 180 / (Math.PI * this.freeSpinsRadius);
  }
 
  @computed
- get maxJackPot() {
-   return 2 * Math.PI * this.jackPotRadius - 0.01;
+ get maxFreeSpins() {
+   return 2 * Math.PI * this.freeSpinsRadius - 0.01;
  }
 
  @computed

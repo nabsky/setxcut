@@ -64,10 +64,10 @@ class Arc extends React.Component {
           if(store.isWin){
             store.lastWin = store.winLength;
             store.balanceLength += store.winLength;
-            let jackPotAdd = store.wageLength - store.winLength;
-            store.jackPotLength += jackPotAdd;
-            if(store.jackPotLength > store.maxJackPot){
-              store.jackPotLength = store.maxJackPot;
+            let freeSpinsAdd = store.wageLength - store.winLength;
+            store.freeSpinsLength += freeSpinsAdd;
+            if(store.freeSpinsLength > store.maxFreeSpins){
+              store.freeSpinsLength = store.maxFreeSpins;
             }
           } else {
             store.lastWin = 0;
@@ -82,6 +82,7 @@ class Arc extends React.Component {
         });
       } else {
         Velocity(this.refs.block,{  opacity: "0" }, { duration: 0});
+        segment.draw(0, store.balanceLength, 0.5);
       }
     });
   }
@@ -102,16 +103,16 @@ class Arc extends React.Component {
               <circle cx="0" cy="0" r={store.cutRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
               <circle cx="0" cy="0" r={store.betRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
               <circle cx="0" cy="0" r={store.wageRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
-              <circle cx="0" cy="0" r={store.jackPotRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
+              <circle cx="0" cy="0" r={store.freeSpinsRadius} fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"/>
               <path d={path(store.wageDegrees, store.wageRadius)} fillOpacity="0" stroke="#9932CC" strokeWidth="2"/>
-              <path ref="jackpot" d={path(store.jackPotDegrees, store.jackPotRadius)} fillOpacity="0" stroke="#3CB371" strokeWidth="2"/>
+              <path ref="freeSpins" d={path(store.freeSpinsDegrees, store.freeSpinsRadius)} fillOpacity="0" stroke="#3CB371" strokeWidth="2"/>
               <path ref="block" d={path(store.cutDegrees, store.cutRadius)} fillOpacity="0" stroke="#9932CC" strokeWidth="2"/>
           </g>
 <g transform="translate(10,10)">
           <g transform={transform(store.triangleDegrees, store.betRadius)}>
             <path fill="#FFFFFF" stroke="#777777" strokeWidth="1" d="M 5,3 0,-3 -5,3"/>
           </g>
-          </g>          
+          </g>
 <g transform="translate(10,10)">
           <path fillOpacity="0" stroke="#EEEEEE" strokeWidth="2"
           d="m 150.00591,100.00438 c 29.11431,0.26394 52.79465,25.11909 52.50612,54.06882 -0.30105,30.2057 -26.09828,54.7671 -56.13941,54.44255 -31.29707,-0.33811 -56.739568,-27.07748 -56.378967,-58.21 0.375148,-32.38845 28.056677,-58.712074 60.280587,-58.315388 33.47983,0.412147 60.68461,29.035868 60.25181,62.351178 -0.44912,34.5712 -30.01506,62.65717 -64.42176,62.18823 -35.66259,-0.48606 -64.629764,-30.99426 -64.124655,-66.49235 0.522979,-36.75396 31.973455,-66.602372 68.562935,-66.061075 37.84534,0.559875 68.575,32.952655 67.9975,70.633525 -0.59675,38.93671 -33.93186,70.54765 -72.70411,69.93392 -40.02809,-0.63361 -72.520318,-34.91106 -71.870342,-74.7747 0.670451,-41.11947 35.890252,-74.492998 76.845292,-73.806763 42.21084,0.707277 76.46569,36.869453 75.74318,78.915873 -0.74409,43.30222 -37.84866,78.4384 -80.98647,77.6796 -17.67084,-0.31083 -35.00554,-6.56786 -48.834644,-17.56609" />

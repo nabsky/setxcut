@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observable, action } from "mobx";
 import { observer, inject } from "mobx-react";
-import { Slider, InputNumber, Row, Col } from 'antd';
+import { Button, Slider, InputNumber, Row, Col } from 'antd';
 
 import Arc from "../Layout/Arc";
 
@@ -30,12 +30,20 @@ class Layout extends React.Component {
     }
   }
 
+  @action
   onChange = (value) => {
     const { store } = this.props;
     store.betLength = value;
   }
 
-  getBetContent = () => {
+  @action
+  addBalance = (value) => {
+    const { store } = this.props;
+    store.balanceLength = 150;
+    store.betLength = store.maxBet;
+  }
+
+  getBetContent = (onClickHandler) => {
     const { store } = this.props;
     if(store.balanceLength){
       return (
@@ -59,7 +67,7 @@ class Layout extends React.Component {
         </div>
       )
     } else {
-      return null;
+      return <Button type="primary" ghost onClick={onClickHandler} style={{marginTop: 20}}>Add Balance</Button>;
     }
   }
 
@@ -74,8 +82,8 @@ class Layout extends React.Component {
         <div style={{width: "100%"}} >
           <div>Balance: {store.balanceLength}</div>
           <div>Last Win: {store.lastWin}</div>
-          <div>Jack Pot: {store.jackPotLength}</div>
-          {this.getBetContent()}
+          <div>Free Spins: {store.freeSpinsLength}</div>
+          {this.getBetContent(this.addBalance)}
         </div>
       </div>
     );
