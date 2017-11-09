@@ -79,8 +79,7 @@ class Layout extends React.Component {
   render() {
     const { store } = this.props;
     return (
-      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-        <img src="img/setxcut.png" alt="SETxCUT" width="160px"/>
+      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", width: "100%" }}>
         <div style={{width: "100%"}} onWheel={this.wheel} onClick={this.click}>
           <Arc store={store} />
         </div>

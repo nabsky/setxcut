@@ -4,11 +4,13 @@ import DevTools from "mobx-react-devtools";
 import { Provider } from 'mobx-react';
 import { Row, Col } from 'antd';
 
-import LayoutContainer from "./components/Layout/LayoutContainer";
+import AppContainer from "./components/AppContainer";
 import store from "./models/store";
+import appStore from "./models/AppStore";
 
 const stores = {
   store,
+  appStore
 };
 
 render(
@@ -17,7 +19,7 @@ render(
     <Provider {...stores}>
       <Row type="flex" justify="center" align="middle">
         <Col span={6}>
-          <LayoutContainer />
+          <AppContainer />
         </Col>
       </Row>
     </Provider>
