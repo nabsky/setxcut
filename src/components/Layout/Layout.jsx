@@ -29,10 +29,7 @@ class Layout extends React.Component {
   @action
   click = e => {
     const { store } = this.props;
-    if (store.isSet === false && store.balanceLength > 0) {
-      store.result = 360 + Math.floor(360*Math.random());
-      store.isSet = true;
-    }
+    store.spin();
   }
 
   @action
@@ -86,6 +83,7 @@ class Layout extends React.Component {
         <div style={{width: "100%"}} >
           <div>Balance: {store.balanceLength}</div>
           <div>Last Win: {store.lastWin}</div>
+          <div>Game Number: {store.gameNumber}</div>
           <div>Free Spins: {store.freeSpinsLength}</div>
           {this.getBetContent(this.addBalance)}
         </div>

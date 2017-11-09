@@ -79,6 +79,9 @@ class Arc extends React.Component {
             store.triangleDegrees = 0;
           }
           store.isSet = false;
+          if(store.autorun){
+            store.spin()
+          }
         });
       } else {
         Velocity(this.refs.block,{  opacity: "0" }, { duration: 0});

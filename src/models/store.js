@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx";
+import { observable, computed, action } from "mobx";
 
 class Store {
 
@@ -20,6 +20,10 @@ class Store {
 
   @observable freeSpinsLength = 0;
 
+  @observable gameNumber = 0;
+
+  @observable
+  autorun = true;
 
   @computed
   get maxBet() {
@@ -129,6 +133,15 @@ class Store {
   @computed
   get maxWage() {
     return Math.floor(this.wageLength);
+  }
+
+  @action
+  spin = () => {
+    if (this.isSet === false && this.balanceLength > 0) {
+      this.result = 360 + Math.floor(360*Math.random());
+      this.gameNumber++;
+      this.isSet = true;
+    }
   }
 
 }
