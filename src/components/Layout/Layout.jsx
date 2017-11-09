@@ -8,6 +8,11 @@ import Arc from "../Layout/Arc";
 @inject("store")
 @observer
 class Layout extends React.Component {
+  //TODO rename variables
+  //TODO separate graphics from logic (use segment)
+  //TODO use Free Spins
+  //TODO skill-mode (off, freespins-only, all)
+  //TODO headshot
 
   @action
   wheel = e => {
