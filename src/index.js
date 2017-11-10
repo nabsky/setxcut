@@ -7,10 +7,12 @@ import { Row, Col } from 'antd';
 import AppContainer from "./components/AppContainer";
 import store from "./models/store";
 import appStore from "./models/AppStore";
+import emulStore from "./models/EmulStore";
 
 const stores = {
   store,
-  appStore
+  appStore,
+  emulStore
 };
 
 render(

@@ -4,6 +4,7 @@ import { observer, inject } from "mobx-react";
 import { Radio } from 'antd';
 
 import LayoutContainer from "./Layout/LayoutContainer";
+import EmulationContainer from "./Emulation/EmulationContainer";
 
 @inject("appStore")
 @observer
@@ -18,7 +19,7 @@ class AppContainer extends React.Component {
   getContent = (mode) => {
     switch(mode){
       case 'GAME': return <LayoutContainer />;
-      case 'EMUL': return <div />;
+      case 'EMUL': return <EmulationContainer />;
     }
   }
 
