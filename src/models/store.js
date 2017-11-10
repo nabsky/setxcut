@@ -9,7 +9,7 @@ class Store {
   @observable lastWin = 0;
 
   @observable minBet = 1;
-  @observable _maxBet = 50;
+  @observable _maxBet = 37;
 
   @observable balanceLength = 0;
 
