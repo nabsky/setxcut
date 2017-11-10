@@ -76,18 +76,18 @@ class Layout extends React.Component {
   render() {
     const { store } = this.props;
     return (
-      <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", width: "100%" }}>
-        <div style={{width: "100%"}} onWheel={this.wheel} onClick={this.click}>
-          <Arc store={store} />
+        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", width: 400 }}>
+          <div style={{width: "100%"}} onWheel={this.wheel} onClick={this.click}>
+            <Arc store={store} />
+          </div>
+          <div style={{width: "100%"}} >
+            <div>Balance: {store.balanceLength}</div>
+            <div>Last Win: {store.lastWin}</div>
+            <div>Game Number: {store.gameNumber}</div>
+            <div>Free Spins: {store.freeSpinsLength}</div>
+            {this.getBetContent(this.addBalance)}
+          </div>
         </div>
-        <div style={{width: "100%"}} >
-          <div>Balance: {store.balanceLength}</div>
-          <div>Last Win: {store.lastWin}</div>
-          <div>Game Number: {store.gameNumber}</div>
-          <div>Free Spins: {store.freeSpinsLength}</div>
-          {this.getBetContent(this.addBalance)}
-        </div>
-      </div>
     );
   };
 }

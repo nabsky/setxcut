@@ -19,11 +19,7 @@ render(
   <div>
     <DevTools />
     <Provider {...stores}>
-      <Row type="flex" justify="center" align="middle">
-        <Col span={6}>
-          <AppContainer />
-        </Col>
-      </Row>
+        <AppContainer />
     </Provider>
   </div>,
   document.getElementById("root")

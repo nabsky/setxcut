@@ -26,7 +26,7 @@ class AppContainer extends React.Component {
   render() {
     const { appStore } = this.props;
     return (
-      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
         <img src="img/setxcut.png" alt="SETxCUT" width="160px"/>
         <div style={{marginBottom: 20}}>
           <Radio.Group value={appStore.mode} onChange={this.handleModeChange}>

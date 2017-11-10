@@ -1,17 +1,19 @@
 import { observable, computed } from "mobx";
+import moment from 'moment';
 
 class EmulStore {
   @observable initialBalance = 150;
   @observable maxBalance = 1500;
-  @observable playerStopBalance = this.initialBalance*10;
-  @observable bet = 37;//37;
+  @observable maxBet = 37;
   @observable freeSpinBet = 50;
   @observable emulationCount = 1000;
 
   @observable wageRadius = 140;
   @observable betRadius = 50;
   @observable winRadius = 40;
+
   @observable freeSpins = 0;
+  @observable result = {};
 
   degreeDiff = (from, to, angle) => {
     while (to < from) to += 360;
@@ -101,8 +103,8 @@ class EmulStore {
     let totalWin = 0;
     let freeSpinsCount = 0;
 
-    while(balance > 0 && balance <= this.playerStopBalance){
-      let bet = this.bet < balance ? this.bet : balance;
+    while(balance > 0 && balance <= this.maxBalance){
+      let bet = this.maxBet < balance ? this.maxBet : balance;
       totalBet+=bet;
 
       if(this.freeSpins == 1000){
@@ -146,17 +148,25 @@ class EmulStore {
       casinoBalace: 0,
       winnerCount: 0,
       spinCount: 0,
+      spinTime: '',
       totalBet: 0,
       totalWin: 0,
       payoutPercent: 0,
       avgSpinCount: 0,
+      avgSpinTime: '',
       freeSpinsCount: 0,
+      totalIn: 0,
+      totalOut: 0,
+      winnerWithoutFreeSpinsCount: 0,
     }
     while(emulationCount > 0){
       let playerResult = this.doPlayerCycle();
       if(playerResult.balance > 0){
         emulationResult.casinoBalace-=playerResult.balance;
         emulationResult.winnerCount++;
+        if(playerResult.freeSpinsCount == 0){
+          emulationResult.winnerWithoutFreeSpinsCount++;
+        }
       } else {
         emulationResult.casinoBalace+=this.initialBalance;
       }
@@ -166,8 +176,12 @@ class EmulStore {
       emulationResult.freeSpinsCount+=playerResult.freeSpinsCount;
       emulationCount--;
     }
-    emulationResult.avgSpinCount = emulationResult.spinCount / emulationResult.playerCount;
+    emulationResult.avgSpinCount = (emulationResult.spinCount + emulationResult.freeSpinsCount) / emulationResult.playerCount;
     emulationResult.payoutPercent = emulationResult.totalWin / emulationResult.totalBet * 100;
+    emulationResult.totalIn = emulationResult.playerCount * this.initialBalance;
+    emulationResult.totalOut = emulationResult.winnerCount * this.maxBalance;
+    emulationResult.spinTime = moment.duration((emulationResult.spinCount + emulationResult.freeSpinsCount) * 5, "seconds").humanize();
+    emulationResult.avgSpinTime = moment.duration(emulationResult.avgSpinCount * 5, "seconds").humanize();
     return emulationResult;
   }
 
