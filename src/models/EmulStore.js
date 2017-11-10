@@ -11,7 +11,7 @@ class EmulStore {
   @observable wageRadius = 140;
   @observable betRadius = 50;
   @observable winRadius = 40;
-  freeSpins = 0;
+  @observable freeSpins = 0;
 
   degreeDiff = (from, to, angle) => {
     while (to < from) to += 360;
@@ -66,7 +66,7 @@ class EmulStore {
 
   doFreeSpin(bet) {
     let win = 0;
-    //---------------------
+
     let wageLength = this.getWage(bet);
     let playerBetDegrees = Math.floor(Math.random()*360);
     let gameStartDegrees = Math.floor(Math.random()*360);
@@ -148,12 +148,12 @@ class EmulStore {
       spinCount: 0,
       totalBet: 0,
       totalWin: 0,
+      payoutPercent: 0,
       avgSpinCount: 0,
       freeSpinsCount: 0,
     }
     while(emulationCount > 0){
       let playerResult = this.doPlayerCycle();
-      //console.log(playerResult);
       if(playerResult.balance > 0){
         emulationResult.casinoBalace-=playerResult.balance;
         emulationResult.winnerCount++;
@@ -167,6 +167,7 @@ class EmulStore {
       emulationCount--;
     }
     emulationResult.avgSpinCount = emulationResult.spinCount / emulationResult.playerCount;
+    emulationResult.payoutPercent = emulationResult.totalWin / emulationResult.totalBet * 100;
     return emulationResult;
   }
 
