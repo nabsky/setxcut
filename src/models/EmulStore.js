@@ -15,6 +15,8 @@ class EmulStore {
   @observable freeSpins = 0;
   @observable result = {};
 
+  @observable breakAfterFirstFreeSpin = false;
+
   degreeDiff = (from, to, angle) => {
     while (to < from) to += 360;
     while (angle < from) angle += 360;
@@ -117,6 +119,9 @@ class EmulStore {
             totalWin+=freeSpinResult.win;
           }
         }
+        if(this.breakAfterFirstFreeSpin){
+          break;
+        }
       }
 
       let spinResult = this.doSpin(bet);
@@ -158,11 +163,14 @@ class EmulStore {
       totalIn: 0,
       totalOut: 0,
       winnerWithoutFreeSpinsCount: 0,
+      totalWinnerBalance: 0,
+      avgWinnerBalance: 0,
     }
     while(emulationCount > 0){
       let playerResult = this.doPlayerCycle();
       if(playerResult.balance > 0){
         emulationResult.casinoBalace-=playerResult.balance;
+        emulationResult.totalWinnerBalance+=playerResult.balance;
         emulationResult.winnerCount++;
         if(playerResult.freeSpinsCount == 0){
           emulationResult.winnerWithoutFreeSpinsCount++;
@@ -182,6 +190,7 @@ class EmulStore {
     emulationResult.totalOut = emulationResult.winnerCount * this.maxBalance;
     emulationResult.spinTime = moment.duration((emulationResult.spinCount + emulationResult.freeSpinsCount) * 5, "seconds").humanize();
     emulationResult.avgSpinTime = moment.duration(emulationResult.avgSpinCount * 5, "seconds").humanize();
+    emulationResult.avgWinnerBalance = emulationResult.totalWinnerBalance/emulationResult.winnerCount;
     return emulationResult;
   }
 
