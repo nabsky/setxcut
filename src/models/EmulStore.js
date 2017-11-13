@@ -116,7 +116,7 @@ class EmulStore {
           this.freeSpins-=this.freeSpinBet;
           if(freeSpinResult.win > 0){
             winCount++;
-            totalWin+=freeSpinResult.win;
+            //totalWin+=freeSpinResult.win;
           }
         }
         if(this.breakAfterFirstFreeSpin){
@@ -127,7 +127,7 @@ class EmulStore {
       let spinResult = this.doSpin(bet);
       if(spinResult.win > 0){
         winCount++;
-        totalWin+=spinResult.win;
+        totalWin+=(spinResult.win + bet);
         this.freeSpins+=spinResult.freeSpins;
         if(this.freeSpins > 1000){
           this.freeSpins = 1000;
