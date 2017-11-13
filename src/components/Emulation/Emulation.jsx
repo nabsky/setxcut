@@ -122,7 +122,7 @@ class Emulation extends React.Component {
         </Form>
         <div>
           <div>Total Players: {emulStore.result.playerCount}</div>
-          <div>Winner Players: {emulStore.result.winnerCount} (without FS: {emulStore.result.winnerWithoutFreeSpinsCount})</div>
+          <div>Winner Players: {emulStore.result.winnerCount} (average balance: {emulStore.result.avgWinnerBalance})</div>
           <div>Casino Balance: {emulStore.result.casinoBalace}</div>
           <hr/>
           <div>Total Spin Count: {emulStore.result.spinCount} ({emulStore.result.spinTime})</div>

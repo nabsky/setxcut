@@ -183,12 +183,12 @@ class EmulStore {
       emulationResult.totalBet+=playerResult.totalBet;
       emulationResult.totalWin+=playerResult.totalWin;
       emulationResult.freeSpinsCount+=playerResult.freeSpinsCount;
+      emulationResult.totalOut += playerResult.balance;
       emulationCount--;
     }
     emulationResult.avgSpinCount = (emulationResult.spinCount + emulationResult.freeSpinsCount) / emulationResult.playerCount;
     emulationResult.payoutPercent = emulationResult.totalWin / emulationResult.totalBet * 100;
     emulationResult.totalIn = emulationResult.playerCount * this.initialBalance;
-    emulationResult.totalOut = emulationResult.winnerCount * this.maxBalance;
     emulationResult.spinTime = moment.duration((emulationResult.spinCount + emulationResult.freeSpinsCount) * 5, "seconds").humanize();
     emulationResult.avgSpinTime = moment.duration(emulationResult.avgSpinCount * 5, "seconds").humanize();
     emulationResult.avgWinnerBalance = emulationResult.totalWinnerBalance/emulationResult.winnerCount;
