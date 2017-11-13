@@ -169,7 +169,8 @@ class EmulStore {
     while(emulationCount > 0){
       let playerResult = this.doPlayerCycle();
       if(playerResult.balance > 0){
-        emulationResult.casinoBalace-=playerResult.balance;
+        let pureWinAmount = playerResult.balance - this.initialBalance;
+        emulationResult.casinoBalace-=pureWinAmount;
         emulationResult.totalWinnerBalance+=playerResult.balance;
         emulationResult.winnerCount++;
         if(playerResult.freeSpinsCount == 0){
