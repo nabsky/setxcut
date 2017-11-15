@@ -84,7 +84,7 @@ class Emulation extends React.Component {
             labelCol={{ span: 12 }}
             wrapperCol={{ span: 12 }}
           >
-            <InputNumber ref="freeSpinBet" min={1} max={100} defaultValue={50} onChange={this.freeSpinBetChange} />
+            <InputNumber ref="freeSpinBet" min={1} max={100} defaultValue={100} onChange={this.freeSpinBetChange} />
           </Form.Item>
           <Form.Item
             label="Wage Radius"
@@ -128,6 +128,8 @@ class Emulation extends React.Component {
           <div>Total Spin Count: {emulStore.result.spinCount} ({emulStore.result.spinTime})</div>
           <div>Average Spin Count per Player: {emulStore.result.avgSpinCount} ({emulStore.result.avgSpinTime})</div>
           <div>Total Free Spins: {emulStore.result.freeSpinsCount}</div>
+          <div>Total Free Spin Win: {emulStore.result.totalFreeSpinWin}</div>
+          <div>Avg Free Spin Win: {emulStore.result.avgFreeSpinWin}</div>
           <hr/>
           <div>Total Bet: {emulStore.result.totalBet}</div>
           <div>Total Win: {emulStore.result.totalWin}</div>

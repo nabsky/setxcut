@@ -5,7 +5,7 @@ class EmulStore {
   @observable initialBalance = 150;
   @observable maxBalance = 1500;
   @observable maxBet = 37;
-  @observable freeSpinBet = 50;
+  @observable freeSpinBet = 100;
   @observable emulationCount = 1000;
 
   @observable wageRadius = 140;
@@ -16,6 +16,8 @@ class EmulStore {
   @observable result = {};
 
   @observable breakAfterFirstFreeSpin = false;
+  @observable bonusAsBet = false;
+
 
   degreeDiff = (from, to, angle) => {
     while (to < from) to += 360;
@@ -70,8 +72,12 @@ class EmulStore {
 
   doFreeSpin(bet) {
     let win = 0;
-
-    let wageLength = this.getWage(bet);
+    let wageLength;
+    if(this.bonusAsBet){
+      wageLength = this.getWage(bet);
+    } else {
+      wageLength = bet;
+    }
     let playerBetDegrees = Math.floor(Math.random()*360);
     let gameStartDegrees = Math.floor(Math.random()*360);
     let gameLengthDegrees = wageLength * 180 / (Math.PI * this.winRadius);
@@ -103,6 +109,7 @@ class EmulStore {
     let winCount = 0;
     let totalBet = 0;
     let totalWin = 0;
+    let totalFreeSpinWin = 0;
     let freeSpinsCount = 0;
 
     while(balance > 0 && balance <= this.maxBalance){
@@ -117,6 +124,7 @@ class EmulStore {
           if(freeSpinResult.win > 0){
             winCount++;
             //totalWin+=freeSpinResult.win;
+            totalFreeSpinWin+=freeSpinResult.win;
           }
         }
         if(this.breakAfterFirstFreeSpin){
@@ -143,6 +151,7 @@ class EmulStore {
       totalBet: totalBet,
       totalWin: totalWin,
       freeSpinsCount: freeSpinsCount,
+      totalFreeSpinWin: totalFreeSpinWin,
     }
   }
 
@@ -160,6 +169,8 @@ class EmulStore {
       avgSpinCount: 0,
       avgSpinTime: '',
       freeSpinsCount: 0,
+      totalFreeSpinWin: 0,
+      avgFreeSpinWin: 0,
       totalIn: 0,
       totalOut: 0,
       winnerWithoutFreeSpinsCount: 0,
@@ -184,6 +195,7 @@ class EmulStore {
       emulationResult.totalWin+=playerResult.totalWin;
       emulationResult.freeSpinsCount+=playerResult.freeSpinsCount;
       emulationResult.totalOut += playerResult.balance;
+      emulationResult.totalFreeSpinWin+=playerResult.totalFreeSpinWin;
       emulationCount--;
     }
     emulationResult.avgSpinCount = (emulationResult.spinCount + emulationResult.freeSpinsCount) / emulationResult.playerCount;
@@ -192,6 +204,8 @@ class EmulStore {
     emulationResult.spinTime = moment.duration((emulationResult.spinCount + emulationResult.freeSpinsCount) * 5, "seconds").humanize();
     emulationResult.avgSpinTime = moment.duration(emulationResult.avgSpinCount * 5, "seconds").humanize();
     emulationResult.avgWinnerBalance = emulationResult.totalWinnerBalance/emulationResult.winnerCount;
+    emulationResult.avgFreeSpinWin = emulationResult.totalFreeSpinWin / emulationResult.freeSpinsCount;
+
     return emulationResult;
   }
 
