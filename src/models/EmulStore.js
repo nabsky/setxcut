@@ -18,6 +18,8 @@ class EmulStore {
   @observable breakAfterFirstFreeSpin = false;
   @observable bonusAsBet = false;
 
+  @observable jackPot = 0;
+
 
   degreeDiff = (from, to, angle) => {
     while (to < from) to += 360;
@@ -94,11 +96,13 @@ class EmulStore {
 
     if(win > 0){
       return {
-        win: win
+        win: win,
+        jackPot: wageLength - winLength,
       };
     } else {
       return {
-        win: 0
+        win: 0,
+        jackPot: 0,
       };
     }
   }
@@ -125,6 +129,7 @@ class EmulStore {
             winCount++;
             //totalWin+=freeSpinResult.win;
             totalFreeSpinWin+=freeSpinResult.win;
+            this.jackPot+=freeSpinResult.jackPot;
           }
         }
         if(this.breakAfterFirstFreeSpin){
@@ -156,6 +161,7 @@ class EmulStore {
   }
 
   doEmulation(){
+    this.jackPot = 0;
     let emulationCount = this.emulationCount;
     let emulationResult = {
       playerCount: emulationCount,
@@ -179,6 +185,7 @@ class EmulStore {
       winnerWithoutFreeSpinsCount: 0,
       totalWinnerBalance: 0,
       avgWinnerBalance: 0,
+      jackPot: 0,
     }
     while(emulationCount > 0){
       let playerResult = this.doPlayerCycle();
@@ -215,6 +222,7 @@ class EmulStore {
     emulationResult.avgWinnerBalance = emulationResult.totalWinnerBalance/emulationResult.winnerCount;
     emulationResult.avgFreeSpinWin = emulationResult.totalFreeSpinWin / emulationResult.freeSpinsCount;
     emulationResult.avgFreeSpinsCount = emulationResult.freeSpinsCount / emulationResult.playerCount;
+    emulationResult.jackPot = this.jackPot;
 
     return emulationResult;
   }
