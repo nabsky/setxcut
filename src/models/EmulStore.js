@@ -169,8 +169,11 @@ class EmulStore {
       avgSpinCount: 0,
       avgSpinTime: '',
       freeSpinsCount: 0,
+      avgFreeSpinsCount: 0,
+      maxFreeSpinsCount: 0,
       totalFreeSpinWin: 0,
       avgFreeSpinWin: 0,
+      maxFreeSpinWin: 0,
       totalIn: 0,
       totalOut: 0,
       winnerWithoutFreeSpinsCount: 0,
@@ -196,15 +199,22 @@ class EmulStore {
       emulationResult.freeSpinsCount+=playerResult.freeSpinsCount;
       emulationResult.totalOut += playerResult.balance;
       emulationResult.totalFreeSpinWin+=playerResult.totalFreeSpinWin;
+      if(playerResult.totalFreeSpinWin > emulationResult.maxFreeSpinWin){
+        emulationResult.maxFreeSpinWin = playerResult.totalFreeSpinWin;
+      }
+      if(playerResult.freeSpinsCount > emulationResult.maxFreeSpinsCount){
+        emulationResult.maxFreeSpinsCount = playerResult.freeSpinsCount;
+      }
       emulationCount--;
     }
-    emulationResult.avgSpinCount = (emulationResult.spinCount + emulationResult.freeSpinsCount) / emulationResult.playerCount;
+    emulationResult.avgSpinCount = (emulationResult.spinCount + emulationResult.freeSpinsCount*10) / emulationResult.playerCount;
     emulationResult.payoutPercent = emulationResult.totalWin / emulationResult.totalBet * 100;
     emulationResult.totalIn = emulationResult.playerCount * this.initialBalance;
     emulationResult.spinTime = moment.duration((emulationResult.spinCount + emulationResult.freeSpinsCount) * 5, "seconds").humanize();
     emulationResult.avgSpinTime = moment.duration(emulationResult.avgSpinCount * 5, "seconds").humanize();
     emulationResult.avgWinnerBalance = emulationResult.totalWinnerBalance/emulationResult.winnerCount;
     emulationResult.avgFreeSpinWin = emulationResult.totalFreeSpinWin / emulationResult.freeSpinsCount;
+    emulationResult.avgFreeSpinsCount = emulationResult.freeSpinsCount / emulationResult.playerCount;
 
     return emulationResult;
   }
