@@ -72,7 +72,7 @@ class EmulStore {
     }
   }
 
-  doFreeSpin(bet) {
+  doFreeSpin(bet, isLast) {
     let win = 0;
     let wageLength;
     if(this.bonusAsBet){
@@ -97,7 +97,7 @@ class EmulStore {
     if(win > 0){
       return {
         win: win,
-        jackPot: wageLength - winLength,
+        jackPot: isLast ? wageLength - winLength : 0,
       };
     } else {
       return {
@@ -123,7 +123,7 @@ class EmulStore {
       if(this.freeSpins == 1000){
         freeSpinsCount++;
         while(this.freeSpins > 0){
-          let freeSpinResult = this.doFreeSpin(this.freeSpinBet);
+          let freeSpinResult = this.doFreeSpin(this.freeSpinBet, this.freeSpins == this.freeSpinBet);
           this.freeSpins-=this.freeSpinBet;
           if(freeSpinResult.win > 0){
             winCount++;
