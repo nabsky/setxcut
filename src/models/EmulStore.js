@@ -225,6 +225,8 @@ class EmulStore {
     emulationResult.avgFreeSpinWin = emulationResult.totalFreeSpinWin / emulationResult.freeSpinsCount;
     emulationResult.avgFreeSpinsCount = emulationResult.freeSpinsCount / emulationResult.playerCount;
     emulationResult.jackPot = this.jackPot;
+    emulationResult.maxWage = this.getWage(this.maxBet)
+    emulationResult.winnerPercent = emulationResult.winnerCount*100/emulationResult.playerCount;
 
     return emulationResult;
   }

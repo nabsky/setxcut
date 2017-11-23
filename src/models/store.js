@@ -9,12 +9,15 @@ class Store {
   @observable lastWin = 0;
 
   @observable minBet = 1;
-  @observable _maxBet = 37;
+  @observable _maxBet = 34;//37;
 
   @observable balanceLength = 0;
 
   @observable betLength = 0;
+
   @observable betRadius = 50;
+  @observable wageRadius = 147//140;
+  @observable cutRadius = 44;//40;
 
   @observable triangleDegrees = 0;
 
@@ -40,21 +43,11 @@ class Store {
     return this.betDegrees;
   }
 
-  @computed
-  get wageRadius() {
-    return this.betRadius + 90;
-  }
-
 
   @computed
   get freeSpinsRadius() {
     return this.betRadius + 109.156;//98;
   }
-
- @computed
- get cutRadius() {
-  return this.betRadius - 10;
- }
 
  @computed
  get wageLength() {

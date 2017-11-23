@@ -123,6 +123,7 @@ class Emulation extends React.Component {
         <div>
           <div>Total Players: {emulStore.result.playerCount}</div>
           <div>Winner Players: {emulStore.result.winnerCount} (average balance: {emulStore.result.avgWinnerBalance})</div>
+          <div>Winner Percent: {emulStore.result.winnerPercent}%</div>
           <div>Casino Balance: {emulStore.result.casinoBalace}</div>
           <hr/>
           <div>Total Spin Count: {emulStore.result.spinCount} ({emulStore.result.spinTime})</div>
@@ -133,6 +134,7 @@ class Emulation extends React.Component {
           <div>Total Free Spin Win: {emulStore.result.totalFreeSpinWin}</div>
           <div>Max Free Spin Win: {emulStore.result.maxFreeSpinWin}</div>
           <div>Avg Free Spin Win: {emulStore.result.avgFreeSpinWin}</div>
+          <div>Max Wage: {emulStore.result.maxWage}</div>
           <hr/>
           <div>Jack Pot: {emulStore.result.jackPot}</div>
           <hr/>
