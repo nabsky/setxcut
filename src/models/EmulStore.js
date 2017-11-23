@@ -130,6 +130,7 @@ class EmulStore {
             //totalWin+=freeSpinResult.win;
             totalFreeSpinWin+=freeSpinResult.win;
             this.jackPot+=freeSpinResult.jackPot;
+            balance += freeSpinResult.win;
           }
         }
         if(this.breakAfterFirstFreeSpin){
@@ -216,6 +217,7 @@ class EmulStore {
     }
     emulationResult.avgSpinCount = (emulationResult.spinCount + emulationResult.freeSpinsCount*10) / emulationResult.playerCount;
     emulationResult.payoutPercent = emulationResult.totalWin / emulationResult.totalBet * 100;
+    emulationResult.payoutPercentFreeSpin = (emulationResult.totalWin + emulationResult.totalFreeSpinWin) / emulationResult.totalBet * 100;
     emulationResult.totalIn = emulationResult.playerCount * this.initialBalance;
     emulationResult.spinTime = moment.duration((emulationResult.spinCount + emulationResult.freeSpinsCount) * 5, "seconds").humanize();
     emulationResult.avgSpinTime = moment.duration(emulationResult.avgSpinCount * 5, "seconds").humanize();

@@ -138,10 +138,13 @@ class Emulation extends React.Component {
           <hr/>
           <div>Total Bet: {emulStore.result.totalBet}</div>
           <div>Total Win: {emulStore.result.totalWin}</div>
+          <div>Total Bet - Total Win = {emulStore.result.totalBet - emulStore.result.totalWin}</div>
           <div>Payout Percent: {emulStore.result.payoutPercent}</div>
+          <div>Payout Percent with Free Spins: {emulStore.result.payoutPercentFreeSpin}</div>
           <hr/>
           <div>Total In: {emulStore.result.totalIn}</div>
           <div>Total Out: {emulStore.result.totalOut}</div>
+          <div>Total In - Total Out = {emulStore.result.totalIn - emulStore.result.totalOut}</div>
         </div>
       </div>
     );
